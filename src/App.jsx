@@ -5,10 +5,12 @@ import { Toaster } from "react-hot-toast";
 import "./App.css";
 import { AuthProvider } from "./context/AuthProvider";
 import AppRoutes from "./Routes"; 
+import NavbarClient from "./components/common/NavbarClient";
 
 function App() {
   return (
     <div>
+
       <Toaster position="top-right" reverseOrder={false} />
       <Router>
         <AuthProvider>

@@ -35,12 +35,12 @@ const foodVendors = [
 export default function SearchPage() {
 
   return (
-    <div className="container mx-auto w-[80vw] mt-5">
+    <div className="container mx-auto w-[80vw]">
     <Navbar/>
-      <h1 className="text-3xl font-bold mb-8">Find Your Favorite Food</h1>
+      <h1 className="text-3xl font-bold mb-8 mt-10">Find Your Favorite Food</h1>
       
       {/* Search Box */}
-      <div className="flex mb-6">
+      <div className="flex mb-6 p-4">
         <Input
           type="text"
           placeholder="Search for food or vendors..."
@@ -51,7 +51,7 @@ export default function SearchPage() {
         </Button>
       </div>
 
-      <div className="grid md:grid-cols-[250px_1fr] gap-6">
+      <div className="grid md:grid-cols-[250px_1fr] gap-6 p-4">
         {/* Filters */}
         <Card className="h-fit">
           <CardHeader>

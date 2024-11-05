@@ -2,9 +2,9 @@
 import {  ChevronRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import VendorHero from '@/components/vendorPage/VendorHero'
-import VendorMenu from '@/components/vendorPage/VendorMenu'
-import VendorReview from '@/components/vendorPage/VendorReview'
+import VendorHero from '@/components/client/vendorPage/VendorHero'
+import VendorMenu from '@/components/client/vendorPage/VendorMenu'
+import VendorReview from '@/components/client/vendorPage/VendorReview'
 import Navbar from '@/components/common/NavbarClient'
 
 export default function VendorPage() {

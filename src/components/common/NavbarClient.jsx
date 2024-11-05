@@ -10,6 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { Menu, X } from 'lucide-react'
+import LocationButton from './LocationButton'
 
 export default function NavbarClient() {
   const { isAuthenticated } = useAuth()
@@ -44,11 +45,15 @@ export default function NavbarClient() {
   )
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full bg-white">
       <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center space-x-2">
-          <span className="text-xl font-bold">Roadside</span>
-        </Link>
+        <div className="flex items-center space-x-4">
+          <Link to="/" className="flex items-center">
+            <span className="text-[30px] font-bold text-red-400">Roadside</span>
+          </Link>
+          <LocationButton />
+        </div>
+        
         <nav className="hidden md:flex items-center space-x-6">
           <NavItems />
         </nav>

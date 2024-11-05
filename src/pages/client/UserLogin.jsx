@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import authApi from "@/api/authentication";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthProvider";
+import NavbarClient from "@/components/common/NavbarClient";
 
 
 function UserLogin() {
@@ -46,7 +47,9 @@ function UserLogin() {
       .then((resp) => {
         toast.success("Login successful!");
         const token=resp.data.access_token;
-        login(null, token);
+        console.log(resp.data.userInfo);
+        
+        login(resp.data.userInfo, token);
         navigate("/")
       })
       .catch((error) => {

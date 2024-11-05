@@ -9,12 +9,13 @@ import Home from "./pages/client/Home";
 import VendorPage from "./pages/client/VendorPage";
 import SearchPage from "./pages/client/SearchPage";
 import VendorRegister from "./pages/client/VendorRegister";
-import { LayoutWithClientNavbar } from "./components/common/Layouts";
+import VendorLayout from "./pages/vendor/VendorLayout";
+
+
 
 function AppRoutes() {
   return (
     <Routes>
-      <Route element={<LayoutWithClientNavbar/>}>
         <Route
           path="/auth/user-login/"
           element={
@@ -24,10 +25,12 @@ function AppRoutes() {
           }
         />
         <Route path="/" element={<Home />} />
+        <Route path="/vendor/" element={<VendorLayout />} />
         <Route path="/vendor-profile/" element={<VendorPage />} />
         <Route path="/search/" element={<SearchPage />} />
         <Route path="/register-vendor/" element={<VendorRegister />} />
-      </Route>
+        
+
     </Routes>
   );
 }

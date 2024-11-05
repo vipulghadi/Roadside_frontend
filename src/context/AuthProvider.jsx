@@ -11,6 +11,7 @@ import {
 
 const AuthContext = createContext();
 
+// eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate(); 
   const [currentUser, setCurrentUser] = useState(getUserInfo()); 
@@ -42,7 +43,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       logout();
     }
-  }, []); // Empty dependency array to only run on initial mount
+  }, []); 
 
   return (
     <AuthContext.Provider value={{ currentUser, isAuthenticated, login, logout }}>
