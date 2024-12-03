@@ -6,18 +6,19 @@ import FoodOffers from '@/components/client/homeComponents/FoodOffers'
 import NearbyYou from '@/components/client/homeComponents/NearByYou'
 import PopularItems from '@/components/client/homeComponents/PopularItems'
 import SearchBar from '@/components/client/homeComponents/SearchBar'
-import TopRatedStalls from '@/components/client/homeComponents/TopRatedStalls'
+import HomeBanner from '@/components/client/homeComponents/HomeBanner'
+import Chatbot from './Chatbot'
 
 
 function Home() {
   return (
     <div className='sm:w-[80vw] w-[100vw] mx-auto'>
-    <NavbarClient/>
-    <SearchBar/>
+    <Chatbot/>
+    <HomeBanner/>
     <PopularItems/>
     <FoodOffers/>
     <NearbyYou/>
-    <TopRatedStalls/>
+    
     <Footer/>
     </div>
   )

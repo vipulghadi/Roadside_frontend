@@ -1,9 +1,6 @@
 import axios from "axios";
 import { API_BASE_URL,ACCESS_TOKEN } from ".";
-import { getUserInfo } from "@/utils/localStorageData";
 
-
-getUserInfo
 export const VendorAPI = {
   getTop8FoodItemSuggestions: async (query) => {
     try {
@@ -101,6 +98,7 @@ updateVendorProfile: async (data) => {
       throw new Error("Error updating vendor profile");
     }
   },
+
   //vendor images api
   getVendorImages:async ()=>{
     try {
@@ -140,6 +138,34 @@ updateVendorProfile: async (data) => {
     } catch (error) {
       console.error("Error deleting vendor image:", error);
       throw new Error("Error deleting vendor image")
+    }
+  },
+
+  //support api
+  getGeneralIssues: async ()=>{
+    try {
+      const response = await axios.get(`${API_BASE_URL}/admin/support/general-issues/`, {
+        headers: {
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error getting general issues:", error);
+      throw new Error("Error getting general issues")
+    }
+  },
+  raiseTicket:async (data)=>{
+    try {
+      const response = await axios.post(`${API_BASE_URL}/client/support/raise-ticket/`,data, {
+        headers: {
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error raising ticket:", error);
+      throw new Error("Error raising ticket")
     }
   }
 

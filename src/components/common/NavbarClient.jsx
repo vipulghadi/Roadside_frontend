@@ -19,7 +19,7 @@ export default function NavbarClient() {
   const NavItems = ({ isMobile = false }) => (
     <>
       <Link 
-        to="/search" 
+        to="/discover-local" 
         className={`text-sm font-medium transition-colors hover:text-primary ${isMobile ? 'block py-2' : ''}`}
         onClick={() => isMobile && setIsOpen(false)}
       >
@@ -45,13 +45,12 @@ export default function NavbarClient() {
   )
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white">
+    <header className="sticky top-0 z-50 w-full  bg-white   md:px-[130px] p-2">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center space-x-4">
           <Link to="/" className="flex items-center">
             <span className="text-[30px] font-bold text-red-400">Roadside</span>
           </Link>
-          <LocationButton />
         </div>
         
         <nav className="hidden md:flex items-center space-x-6">

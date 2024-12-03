@@ -10,6 +10,9 @@ import VendorPage from "./pages/client/VendorPage";
 import SearchPage from "./pages/client/SearchPage";
 import VendorRegister from "./pages/client/VendorRegister";
 import VendorLayout from "./pages/vendor/VendorLayout";
+import ExploreNearbyVendors from "./pages/client/ExploreNearbyVendors";
+import PageNotFound from "./pages/client/PageNotFound";
+import DiscoverLocal from "./pages/client/DiscoverLocal";
 
 
 
@@ -26,9 +29,12 @@ function AppRoutes() {
         />
         <Route path="/" element={<Home />} />
         <Route path="/vendor/" element={<VendorLayout />} />
-        <Route path="/vendor-profile/" element={<VendorPage />} />
+        <Route path="/vendor-profile/:vendorSlug" element={<VendorPage />} />
         <Route path="/search/" element={<SearchPage />} />
+        <Route path="/discover-local/" element={<DiscoverLocal />} />
+        <Route path="/explore-nearby-vendors/" element={<ExploreNearbyVendors />} />
         <Route path="/register-vendor/" element={<VendorRegister />} />
+        <Route path="/*" element={<PageNotFound />} />
         
 
     </Routes>

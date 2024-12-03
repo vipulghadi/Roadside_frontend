@@ -1,68 +1,58 @@
-
-
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
-import { Badge } from "@/components/ui/badge"
 import { Loader2, Send } from "lucide-react"
+import { VendorAPI } from '@/api/vendorAPI'
+import toast from 'react-hot-toast'
 
-const problemTags = [
-  "Product Issue", "Shipping", "Payment", "Account", "Technical Support", "Other"
-]
+
 
 export default function VendorContactUs() {
   const [query, setQuery] = useState('')
-  const [selectedTags, setSelectedTags] = useState([])
+  const [generalIssues, setGeneralIssues] = useState([])
+  const [selectedIssue, setSelectedIssue] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleTagToggle = (tag) => {
-    setSelectedTags(prev => 
-      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
-    )
+  useEffect(() => {
+    VendorAPI.getGeneralIssues()
+      .then((resp) => {
+        setGeneralIssues(resp.data)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }, [])
+
+  const handleSelectedIssues = (tag) => {
+    selectedIssue[tag]
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    console.log("in function");
+    
     e.preventDefault()
-    if (!query.trim() || selectedTags.length === 0) {
-      toast({
-        title: "Incomplete Form",
-        description: "Please fill in your query and select at least one problem tag.",
-        variant: "destructive",
-      })
-      return
+    if (!query.trim() ) {
+      return Promise.reject()
     }
-
     setIsSubmitting(true)
-    try {
-      const response = await fetch('/api/vendor-contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query, tags: selectedTags })
-      })
-
-      if (!response.ok) throw new Error('Failed to submit query')
-
-      toast({
-        title: "Query Submitted",
-        description: "We've received your query and will get back to you soon.",
-      })
-      setQuery('')
-      setSelectedTags([])
-    } catch (error) {
-      console.error('Error submitting query:', error)
-      toast({
-        title: "Submission Failed",
-        description: "There was an error submitting your query. Please try again.",
-        variant: "destructive",
-      })
-    } finally {
-      setIsSubmitting(false)
-    }
+    VendorAPI.raiseTicket({
+        "issue_type":selectedIssue ?selectedIssue.id:null,
+        "description": query,
+    }).then((resp)=>{
+        setIsSubmitting(false)
+        toast.success("Ticket raised successfully")
+        setQuery("")
+      }).catch((err) => {
+        setIsSubmitting(false)
+        toast.error(err.message)
+    }).finally(()=>{
+        setIsSubmitting(false)
+        setQuery("")
+    })
   }
-
+    
   return (
     <div className="container mx-auto p-4">
       <Card className="max-w-2xl mx-auto">
@@ -87,15 +77,14 @@ export default function VendorContactUs() {
               <div>
                 <Label>Problem Tags</Label>
                 <div className="flex flex-wrap gap-2 mt-2">
-                  {problemTags.map((tag) => (
-                    <Badge
-                      key={tag}
-                      variant={selectedTags.includes(tag) ? "default" : "outline"}
-                      className="cursor-pointer"
-                      onClick={() => handleTagToggle(tag)}
+                  {generalIssues.map((tag) => (
+                    <span
+                      key={tag.id}
+                      className="cursor-pointer border rounded-md px-2 text-[13px] py-1"
+                      onClick={() => handleSelectedIssues(tag)}
                     >
-                      {tag}
-                    </Badge>
+                      {tag.title}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -103,7 +92,9 @@ export default function VendorContactUs() {
           </form>
         </CardContent>
         <CardFooter>
-          <Button onClick={handleSubmit} disabled={isSubmitting} className="w-full">
+          <Button onClick={(e)=>{
+handleSubmit(e)
+          }} disabled={isSubmitting} className="w-full">
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -14,6 +14,7 @@ function App() {
       <Toaster position="top-right" reverseOrder={false} />
       <Router>
         <AuthProvider>
+        <NavbarClient/>
           <AppRoutes /> 
         </AuthProvider>
       </Router>
