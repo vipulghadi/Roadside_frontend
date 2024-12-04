@@ -12,12 +12,13 @@ import VendorCard from "@/components/common/VendorCard";
 import Pagination from "@/components/common/Pagination";
 import { useLocation, useNavigate } from "react-router-dom";
 import { VENDOR_LOCATION_CHOICES, FOOD_TYPE_CHOICES, SITTING_CHOICES, SIZE_CHOICES } from "@/constants/filterChoices";
+import ZeroVendorFound from "@/components/common/ZeroVendorFound";
 
 export default function DiscoverLocal() {
   const location = useLocation();
   const navigate = useNavigate();
   const [dataFound, setDataFound] = useState(true);
-
+  const [redirectURL, setRedirectURL]=useState(`/discover-local/`)
   const [filters, setFilters] = useState({
     page: "1",
     search: "",
@@ -221,30 +222,12 @@ export default function DiscoverLocal() {
               totalPages={totalPages}
               filters={filters}
               setFilters={setFilters}
+              redirectURL={redirectURL}
             />
           </div>
         </>
       ) : (
-        <div className="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <SearchX className="mx-auto h-24 w-24 text-gray-400" />
-            <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900">Oops! No Vendors Found</h2>
-            <p className="mt-2 text-lg text-gray-500">
-              We couldn't find any vendors matching your search criteria.
-            </p>
-            <p className="mt-1 text-sm text-gray-500">
-              Try adjusting your filters or search terms to find more options.
-            </p>
-            <div className="mt-6">
-              <Button
-                onClick={clearFilters}
-                className="inline-flex items-center"
-              >
-                Clear Filters
-              </Button>
-            </div>
-          </div>
-        </div>
+    <ZeroVendorFound clearFilters={clearFilters}/>
       )}
     </div>
   );

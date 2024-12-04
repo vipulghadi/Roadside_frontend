@@ -47,7 +47,7 @@ export default function HomeBanner() {
   }
 
   return (
-    <div className=" bg-sky-900 text-white p-8 rounded-lg shadow-xl overflow-hidden relative">
+    <div className=" bg-indigo-600 text-white p-8 rounded-lg shadow-xl  relative ">
       <div className="absolute inset-0 bg-white opacity-10 "></div>
       <h1 className="text-4xl font-bold mb-8 text-center relative z-10 animate-fadeIn">
         Discover Amazing Food Near You

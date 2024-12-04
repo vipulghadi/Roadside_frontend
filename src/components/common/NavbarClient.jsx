@@ -49,7 +49,7 @@ export default function NavbarClient() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center space-x-4">
           <Link to="/" className="flex items-center">
-            <span className="text-[30px] font-bold text-red-400">Roadside</span>
+            <span className="text-[30px] font-bold text-indigo-500">Roadside</span>
           </Link>
         </div>
         

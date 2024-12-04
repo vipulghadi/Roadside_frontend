@@ -9,7 +9,6 @@ import Navbar from '@/components/common/NavbarClient'
 import { clientAPI } from '@/api/clientAPI'
 import VendorCard from '@/components/common/VendorCard'
 
-
 export default function SearchPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [suggestions, setSuggestions] = useState([])
@@ -46,10 +45,16 @@ export default function SearchPage() {
 
     try {
       const resp = await clientAPI.searchFoodByItem(item.id)
-      setSearchResults(resp.data)
+      if (resp.success && resp.data && resp.data.results) {
+        setSearchResults(resp.data.results)
+      } else {
+        setSearchResults([])
+        setError('No results found. Please try another search term.')
+      }
     } catch (error) {
       console.error('Error fetching item details:', error)
       setError('Failed to fetch item details. Please try again.')
+      setSearchResults([])
     } finally {
       setIsLoading(false)
       setSuggestions([])
@@ -57,9 +62,7 @@ export default function SearchPage() {
   }
 
   return (
-    <div className="sm:w-[80vw] w-[100vw] mx-auto mt-5">
-
-      
+    <div className="sm:w-[80vw] w-full mx-auto mt-5 bg-gray-400 sm:p-0 p-4">
       <div className="max-w-3xl mx-auto mb-8">
         <div className="relative">
           <Input
@@ -113,7 +116,7 @@ export default function SearchPage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {searchResults.map((vendor) => (
-            <VendorCard key={vendor.vendor_name} vendor={vendor} />
+            <VendorCard key={vendor.id} vendor={vendor} />
           ))}
         </div>
       )}

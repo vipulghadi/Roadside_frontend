@@ -13,6 +13,7 @@ import VendorLayout from "./pages/vendor/VendorLayout";
 import ExploreNearbyVendors from "./pages/client/ExploreNearbyVendors";
 import PageNotFound from "./pages/client/PageNotFound";
 import DiscoverLocal from "./pages/client/DiscoverLocal";
+import PopularFoodItemVendors from "./pages/client/PopularFoodItemVendors";
 
 
 
@@ -31,6 +32,7 @@ function AppRoutes() {
         <Route path="/vendor/" element={<VendorLayout />} />
         <Route path="/vendor-profile/:vendorSlug" element={<VendorPage />} />
         <Route path="/search/" element={<SearchPage />} />
+        <Route path="/popular-item/:itemId/" element={<PopularFoodItemVendors/>} />
         <Route path="/discover-local/" element={<DiscoverLocal />} />
         <Route path="/explore-nearby-vendors/" element={<ExploreNearbyVendors />} />
         <Route path="/register-vendor/" element={<VendorRegister />} />

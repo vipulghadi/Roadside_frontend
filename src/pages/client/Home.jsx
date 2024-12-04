@@ -12,13 +12,14 @@ import Chatbot from './Chatbot'
 
 function Home() {
   return (
-    <div className='sm:w-[80vw] w-[100vw] mx-auto'>
+    <div className='sm:w-[80vw] w-screen sm:mx-auto '>
+
     <Chatbot/>
     <HomeBanner/>
     <PopularItems/>
+
     <FoodOffers/>
     <NearbyYou/>
-    
     <Footer/>
     </div>
   )

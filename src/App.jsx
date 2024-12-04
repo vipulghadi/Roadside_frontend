@@ -9,7 +9,7 @@ import NavbarClient from "./components/common/NavbarClient";
 
 function App() {
   return (
-    <div>
+    <div className=" k w-full  ">
 
       <Toaster position="top-right" reverseOrder={false} />
       <Router>

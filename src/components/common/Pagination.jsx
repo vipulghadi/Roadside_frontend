@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 
-export default function Pagination({ totalPages, filters, setFilters }) {
+export default function Pagination({ totalPages, filters, setFilters,redirectURL }) {
   const maxPages = 5;
   const pagesToShow = Math.min(maxPages, totalPages);
   const navigate = useNavigate();
@@ -35,15 +35,16 @@ export default function Pagination({ totalPages, filters, setFilters }) {
   const paginationArray = createPaginationArray(totalPages, parseInt(filters.page), pagesToShow);
 
   function handlePageChange(num) {
+    
     const updatedFilters = { ...filters, page: num.toString() };
     setFilters(updatedFilters);
 
     const queryString = Object.entries(updatedFilters)
-      .filter(([_, value]) => value !== "") // Remove empty filters
+      .filter(([_, value]) => value !== "") 
       .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
       .join("&");
 
-    navigate(`/discover-local?${queryString}`);
+    navigate(`${redirectURL}?${queryString}`);
   }
 
   function handlePrevious() {

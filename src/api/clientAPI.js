@@ -105,7 +105,7 @@ rateVendor: async (data)=>{
         throw new Error("Error rating vendor")
  }
 },
-getPopularFoodItemVendors: async (id,page)=>{
+getPopularFoodItemVendorsList: async (id,page)=>{
     try {
         const response = await axios.get(`${API_BASE_URL}/client/vendor/get-popular-food-item-vendors/${id}/?page=${page}`, {
         });

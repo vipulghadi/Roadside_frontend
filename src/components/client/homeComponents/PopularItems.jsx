@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { AlertCircle } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -13,6 +14,7 @@ export default function PopularItems() {
   const [popularFoodItems, setPopularFoodItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+  const navigate =useNavigate()
 
   useEffect(() => {
     const fetchPopularItems = async () => {
@@ -28,6 +30,10 @@ export default function PopularItems() {
 
     fetchPopularItems()
   }, [])
+  function handleItemClick(itemId){
+          navigate(`/popular-item/${itemId}/`)
+
+  }
 
   if (isLoading) {
     return (
@@ -66,6 +72,9 @@ export default function PopularItems() {
             <div
               key={item.id}
               className="flex flex-col items-center space-y-2 min-w-[100px] cursor-pointer"
+              onClick={()=>{
+                handleItemClick(item.id)
+              }}
             >
               <img
                 src={item.image}

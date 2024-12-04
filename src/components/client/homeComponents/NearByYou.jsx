@@ -1,6 +1,4 @@
-
 import React, { useEffect, useState } from "react"
-import StallCard from "../../common/StallCard"
 import {
   Carousel,
   CarouselContent,
@@ -9,13 +7,9 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { clientAPI } from "@/api/clientAPI"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Button } from "@/components/ui/button"
 import VendorCard from "@/components/common/VendorCard"
-
-
 
 export default function NearbyYou() {
   const [nearbyYouVendors, setNearbyYouVendors] = useState([])
@@ -28,11 +22,10 @@ export default function NearbyYou() {
         const resp = await clientAPI.getNearbyYou()
         setNearbyYouVendors(resp.data)
         setIsLoading(false)
-        
       } catch (error) {
         console.error(error)
         setError("Failed to fetch nearby vendors. Please try again later.")
-        
+        setIsLoading(false)
       }
     }
 
@@ -41,45 +34,51 @@ export default function NearbyYou() {
 
   if (isLoading) {
     return (
-      <div className="w-full mt-5">
+      <div className="w-full mt-5 px-4 sm:px-6 lg:px-8">
         <Skeleton className="h-8 w-48 mb-4" />
         <div className="flex space-x-4 overflow-hidden">
-          {[...Array(5)].map((_, index) => (
-            <Skeleton key={index} className="w-[200px] h-[300px]" />
+          {[...Array(4)].map((_, index) => (
+            <Skeleton key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-[300px]" />
           ))}
         </div>
       </div>
     )
   }
 
- 
   return (
-    <div className="w-full mt-5  ">
-    <div className="flex justify-start gap-3 items-center  p-2 mb-5">
-    <h2 className="text-2xl font-semibold">Nearby You</h2>
-    <Button className="text-[13px] font-semibold">Explore More</Button>
-    </div>
+    <div className="w-full mt-5 px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-5">
+        <h2 className="text-2xl font-semibold mb-2 sm:mb-0">Nearby You</h2>
+        <Button className="text-sm font-semibold">Explore More</Button>
+      </div>
      
       {nearbyYouVendors.length > 0 ? (
-        <Carousel
-          opts={{
-            align: "start",
-          }}
-          className="w-full"
-        >
-          <CarouselContent className="w-full">
-            {nearbyYouVendors.map((vendor) => (
-              <CarouselItem   id= {vendor.id }className="md:basis-1/4 lg:basis-1/4">
-                <VendorCard vendor={vendor} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
+        <div className="relative">
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {nearbyYouVendors.map((vendor) => (
+                <CarouselItem key={vendor.id} className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
+                  <VendorCard vendor={vendor} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="absolute top-1/2 -left-4 -translate-y-1/2">
+              <CarouselPrevious className="relative left-0" />
+            </div>
+            <div className="absolute top-1/2 -right-4 -translate-y-1/2">
+              <CarouselNext className="relative right-0" />
+            </div>
+          </Carousel>
+        </div>
       ) : (
         <p className="text-gray-500">No nearby vendors found.</p>
       )}
     </div>
   )
 }
+
