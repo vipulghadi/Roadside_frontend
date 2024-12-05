@@ -54,7 +54,7 @@ function FoodOffers() {
     <div className="w-full mt-7 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-5">
         <h2 className="text-2xl font-semibold mb-2 sm:mb-0">Offers for You</h2>
-        <Button className="text-sm font-semibold">Explore More</Button>
+    
       </div>
       {vendors.length > 0 ? (
         <Card className="border-none">

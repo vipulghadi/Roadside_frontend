@@ -6,6 +6,7 @@ import "./App.css";
 import { AuthProvider } from "./context/AuthProvider";
 import AppRoutes from "./routes";
 import NavbarClient from "./components/common/NavbarClient";
+import Chatbot from "./pages/client/Chatbot";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Router>
         <AuthProvider>
         <NavbarClient/>
+        <Chatbot/>
           <AppRoutes /> 
         </AuthProvider>
       </Router>

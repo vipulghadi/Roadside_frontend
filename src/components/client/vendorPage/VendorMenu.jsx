@@ -1,7 +1,5 @@
 
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
@@ -13,27 +11,37 @@ import {
 } from "@/components/ui/carousel"
 import { Star } from 'lucide-react'
 import { clientAPI } from '@/api/clientAPI'
+import { isError } from 'react-query'
+import { Button } from '@/components/ui/button'
 
 function VendorMenu({vendorSlug}) {
   const [menuItems, setMenuItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
- 
+
 
   useEffect(() => {
-    const fetchMenuItems = async () => {
-      try {
-        setIsLoading(true)
-        const response = await clientAPI.getVendorFoodItems(vendorSlug)
-        setMenuItems(response.data)
-        setError(null)
-      } catch (error) {
-        setError('Failed to load menu items. Please try again later.')
-        setMenuItems([])
-      } 
-    }
 
-    fetchMenuItems()
+        setIsLoading(true)
+        clientAPI.getVendorFoodItems(vendorSlug)
+        .then((response) => {
+          setMenuItems(response.data)
+          setIsLoading(false)
+        })
+        .catch((error)=>{
+            console.error(error)
+            
+            setError('Failed to load menu items. Please try again later.')
+      
+        })
+        .finally(()=>{
+            setIsLoading(false)
+            
+        })
+
+    
+
+
   }, [])
 
   const renderStars = (rating) => {
@@ -42,7 +50,14 @@ function VendorMenu({vendorSlug}) {
     ))
   }
 
+if (error){
+    return <div className="text-center  gap-1 w-full h-[100px] mt-5  rounded-md  flex justify-center items-center font-semibold">
+    <p>{error}</p>
 
+    
+    </div>
+  
+}
 
   return (
     <section className="my-12">

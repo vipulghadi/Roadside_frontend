@@ -26,14 +26,12 @@ export default function VendorCard({ vendor }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-end">
           <h3 className="text-xl font-bold text-white truncate">{strippedName}</h3>
-          <Badge variant={vendor.is_offer ? "destructive" : "secondary"} className="text-xs">
-            {vendor.is_offer ? (
-              <>
-                
-                {vendor.maximum_discount}<Percent className="w-3 h-3 mr-1" />off
-              </>
-            ) : "No Offer"}
+          {vendor.is_offer && 
+            <Badge variant="destructive" className="text-xs">
+            {vendor.maximum_discount}<Percent className="w-3 h-3 mr-1" />off
           </Badge>
+          }
+    
         </div>
       </div>
       <CardContent className="p-4">
@@ -66,7 +64,7 @@ export default function VendorCard({ vendor }) {
         <Button 
           variant="outline" 
           size="sm" 
-          className="text-xs"
+          className="text-xs "
           onClick={() => {
             const url = `https://www.google.com/maps/search/?api=1&query=${vendor.latitude},${vendor.longitude}`
             window.open(url, '_blank', 'noopener,noreferrer')
@@ -76,7 +74,7 @@ export default function VendorCard({ vendor }) {
           Navigate
         </Button>
         <Link to={`/vendor-profile/${vendor.slug}`}>
-          <Button size="sm" className="text-xs">View Details</Button>
+          <Button size="sm" className="text-xs bg-blue-900">View Details</Button>
         </Link>
       </CardFooter>
     </Card>
