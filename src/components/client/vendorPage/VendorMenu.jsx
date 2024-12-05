@@ -11,8 +11,7 @@ import {
 } from "@/components/ui/carousel"
 import { Star } from 'lucide-react'
 import { clientAPI } from '@/api/clientAPI'
-import { isError } from 'react-query'
-import { Button } from '@/components/ui/button'
+
 
 function VendorMenu({vendorSlug}) {
   const [menuItems, setMenuItems] = useState([])
